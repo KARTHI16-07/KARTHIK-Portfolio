@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Karthik — Java Full Stack Developer</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;700;800&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<div class="grid-overlay"></div>
+
+<div id="boot-screen">
+  <pre id="boot-text"></pre>
+</div>
+
+<main id="main" class="pre-reveal">
+
+<nav>
+  <a href="index.html" class="logo">karthik<span>.dev</span></a>
+  <ul>
+    <li><a href="about.html" class="nav-link">about</a></li>
+    <li><a href="skills.html" class="nav-link">skills</a></li>
+    <li><a href="projects.html" class="nav-link">projects</a></li>
+    <li><a href="resume.html" class="nav-link">resume</a></li>
+    <li><a href="contact.html" class="nav-link">contact</a></li>
+  </ul>
+</nav>
+
+<header class="hero" id="top">
+  <div class="tick tl"></div><div class="tick tr"></div><div class="tick bl"></div><div class="tick br"></div>
+  <div class="hero-inner max">
+    <div class="hero-label">// java full stack developer</div>
+    <h1>KARTHIK<br><span class="hl">builds &amp; teaches</span> code.</h1>
+    <p class="tagline">Java-rooted full stack developer expanding into Python and AI/ML — currently training the next batch of developers while shipping ML-powered side projects.</p>
+    <div class="hero-loc"><span class="dot"></span>Chennai, India — open to Java Full Stack roles</div>
+    <div class="btn-row">
+      <a href="projects.html" class="btn btn-primary">view projects</a>
+      <a href="resume.html" class="btn btn-ghost">resume</a>
+    </div>
+  </div>
+</header>
+
+<section>
+  <div class="max">
+    <div class="eyebrow">// explore</div>
+    <h2>site --list</h2>
+    <div class="preview-grid">
+      <a href="about.html" class="preview-card">
+        <div class="pf">01_profile.md</div>
+        <h3>About</h3>
+        <p>Java roots, current role as a trainer, and why I'm building toward full stack + AI/ML.</p>
+      </a>
+      <a href="skills.html" class="preview-card">
+        <div class="pf">02_stack.py</div>
+        <h3>Skills</h3>
+        <p>Java, Python, AI/ML, full stack web, and the tools I build with day to day.</p>
+      </a>
+      <a href="projects.html" class="preview-card">
+        <div class="pf">03_build/</div>
+        <h3>Projects</h3>
+        <p>ML apps, computer vision tools, and in-browser demos — six shipped builds.</p>
+      </a>
+    </div>
+  </div>
+</section>
+
+</main>
+
+<footer>built by karthik — Java Full Stack Developer · Chennai, India</footer>
+
+<script>
+  const bootLines = [
+    { text: "$ whoami", cls: "" },
+    { text: "karthik.dev", cls: "muted" },
+    { text: "", cls: "" },
+    { text: "$ cat role.txt", cls: "" },
+    { text: "Java Full Stack Developer -- exploring Python & AI/ML", cls: "muted" },
+    { text: "", cls: "" },
+    { text: "$ status --check", cls: "" },
+    { text: "open to opportunities", cls: "amber" },
+  ];
+
+  const bootEl = document.getElementById('boot-text');
+  const bootScreen = document.getElementById('boot-screen');
+  const main = document.getElementById('main');
+  const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  function reveal(){
+    bootScreen.classList.add('hidden');
+    main.classList.remove('pre-reveal');
+    main.classList.add('reveal');
+  }
+
+  if (reduceMotion) {
+    reveal();
+  } else {
+    let lineIdx = 0, charIdx = 0;
+    let rendered = [];
+    function typeNext(){
+      if (lineIdx >= bootLines.length) { setTimeout(reveal, 400); return; }
+      const current = bootLines[lineIdx];
+      if (charIdx <= current.text.length) {
+        const done = rendered.map(l => `<span class="${l.cls}">${l.text}</span>`).join("\n");
+        const partial = `<span class="${current.cls}">${current.text.slice(0, charIdx)}</span><span class="cursor"></span>`;
+        bootEl.innerHTML = done + (done ? "\n" : "") + partial;
+        charIdx++;
+        setTimeout(typeNext, current.text.length === 0 ? 80 : 22);
+      } else {
+        rendered.push(current); lineIdx++; charIdx = 0;
+        setTimeout(typeNext, 120);
+      }
+    }
+    typeNext();
+  }
+  setTimeout(reveal, 4500);
+</script>
+
+</body>
+</html>
